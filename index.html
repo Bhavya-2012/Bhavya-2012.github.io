@@ -1,1 +1,192 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bhavya R. - Portfolio</title>
+  
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+body {
+  margin: 0;
+  font-family: 'Merriweather', serif;
+  background-color: #f9f5f0;
+  color: #333;
+  display: flex;
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.left {
+ width: 200px;
+ height: 100px;
+}
+
+.right {
+  flex: 2;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+  color: #5c3d21;
+}
+h2 {
+  font-size: 26px;
+  color: #7a5a3a;
+  margin-bottom: 20px;
+}
+p, li {
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 700px;
+  text-align: justify;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px 0;
+}
+ul li {
+  margin-bottom: 10px;
+}
+.portfolio-section {
+  margin-top: 40px;
+}
+.project {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-left: 4px solid #c1a477;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+.project h3 {
+  margin: 0 0 10px;
+  color: #5c3d21;
+}
+.project p {
+  margin: 0;
+}
+
+/* Mobile image hidden by default */
+.mobile-image {
+  display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .container {
+    flex-direction: column;
+  }
+
+  .left {
+    display: none; /* Hide background image area */
+  }
+  
+  P{
+  font-size: 14px;
+  }
+
+  .mobile-image {
+    display: block;
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  .mobile-image img {
+    width: 80%;
+    max-width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  .right {
+    padding: 30px;
+  }
+  
+  .vid {
+  width: 200px;
+  }
+}
+
+.vid {
+  width: 100%;
+  max-width: 400px; /* limit width on big screens */
+  height: auto;
+  max-height: 500px; /* limit height everywhere */
+  background: white;
+  border: none;
+  outline: none;
+  display: block;
+  margin: 0 auto; /* center the iframe */
+  border-radius: 10px; /* optional for nicer look */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* optional shadow */
+  margin-bottom: 22px;
+}
+
+
+
+ </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="left">
+
+  </div>
+
+  <div class="right">
+    <h1>Bhavya R.</h1>
+
+    <ul>
+      <li><strong>School:</strong> Kendriya Vidyalaya Ezhimala</li>
+      <li><strong>Class:</strong> VIII</li>
+      <li><strong>Place:</strong> Ezhimala, Kerala</li>
+    </ul>
+
+    <!-- Image box only visible in mobile -->
+    <div class="mobile-image">
+      <img src="https://bhavya-2012.github.io/bhavya.jpg" alt="Background Image">
+    </div>
+
+     <div class="portfolio-section">
+    <h2>Achievement</h2>
+    <p>Secured the <strong>Second Prize</strong> at the <strong>Rashtriya Bal Vaigyanik Pradarshani</strong> (National Science Exhibition), showcasing innovation in sustainable waste management and environmental awareness at the national level.</p>
+  </div>
+
+    <div class="portfolio-section">
+      <h2>About the Project</h2>
+      <div class="project">
+        <h2>Carbon Wise: Household Waste Carbon Emission Calculator</h2>
+   <iframe src="https://drive.google.com/file/d/1-InDSAqG3P0BAKObfK-PNBbAPPSggAfr/preview" width="640" height="480" allow="autoplay" class="vid"></iframe>
+      <p>
+        Carbon Wise is an integrated solution developed to quantify and mitigate household carbon emissions arising from waste. The project combines a mobile application and an Arduino-based embedded system to ensure inclusivity and accessibility across diverse populations.
+</p><br><p>
+The mobile app enables users to input waste type and quantity, instantly calculating carbon emissions using scientifically validated factors, and offers AI-driven recommendations to promote sustainable practices. Complementing this, the Arduino system autonomously measures waste weight, categorizes it, and provides real-time emission data without the need for external devices or internet connectivity.
+</p><br><p>
+By making individual waste impact visible and actionable, Carbon Wise empowers households and communities to adopt responsible consumption patterns. It advances environmental education, supports climate action initiatives, and contributes directly to the Sustainable Development Goals, particularly SDG 12 (Responsible Consumption and Production) and SDG 13 (Climate Action).
+
+
+      </p>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
