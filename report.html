@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carbon Wise</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap"
+      rel="stylesheet" />
+    <style>
+      body {
+        font-family: "Merriweather", serif;
+        background-color: #f9f5f0;
+        color: #5a4a42;
+        margin: 0;
+        padding: 2rem;
+        line-height: 1.8;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #7b5e57;
+      }
+      nav {
+        background: #e8dbd0;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+      }
+      nav ul {
+        list-style: none;
+        padding-left: 1rem;
+      }
+      nav ul li {
+        margin: 0.5rem 0;
+      }
+      a {
+        text-decoration: none;
+        color: #5a4a42;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      footer {
+        width: 100%;
+        margin-top: 4rem;
+        font-size: 0.9rem;
+        text-align: center;
+        color: #7b5e57;
+      }
+
+      .container {
+        max-width: 780px;
+        margin: auto;
+        padding: 2rem;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: justify;
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+        color: #8e8e8e;
+      }
+
+      p {
+        font-size: 20px;
+      }
+
+      li {
+        font-size: 20px;
+      }
+      @media screen and (max-width: 600px) {
+        body {
+          padding: 1rem;
+        }
+        h1 {
+          font-size: 1.8rem;
+          /* line height */
+          line-height: 1.4;
+          text-align: left;
+        }
+        h2 {
+          font-size: 1.5rem;
+          /* line height */
+          line-height: 1.4;
+          text-align: left;
+        }
+        h3 {
+          font-size: 1.3rem;
+          text-align: left;
+        }
+        p {
+          font-size: 16px;
+          text-align: justify;
+        }
+        li {
+          font-size: 16px;
+          text-align: left;
+        }
+
+        .math {
+          font-size: 16px;
+          word-wrap: break-word;
+        }
+      }
+
+      .illustration {
+        /* aspect-ratio: 16 / 9; */
+        /* screenshot aspect ration i need */
+        aspect-ratio: 9 / 16;
+        width: 100%;
+        width: 100px;
+        border: 2px solid #7b5e57;
+
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
+        padding: 10px;
+      }
+
+      .thumbnail {
+        width: 100%;
+        height: auto;
+        cursor: pointer;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s;
+        border: 1px solid #cbcbcb;
+      }
+
+      .thumbnail:hover {
+        transform: scale(1.05);
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 100;
+        padding-top: 60px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.9);
+      }
+
+      .modal-content {
+        margin: auto;
+        display: block;
+        max-width: 90%;
+        max-height: 80%;
+      }
+
+      #close {
+        position: absolute;
+        top: 20px;
+        right: 35px;
+        color: #fff;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      #close:hover,
+      #close:focus {
+        color: #bbb;
+      }
+
+      .math-text {
+        max-width: 100%;
+        overflow-x: auto;
+        font-size: 90%;
+        word-break: break-word;
+      }
+
+      @media (max-width: 600px) {
+        .math-text {
+          font-size: 80%;
+        }
+      }
+
+      .MathJax_Display,
+      .MJXc-display,
+      .MathJax_SVG_Display {
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+
+      .vid {
+        width: 100%;
+        /* max-width: 500px; limit width on big screens */
+        height: 300px;
+        max-height: 500px; /* limit height everywhere */
+        background: white;
+        border: none;
+        outline: none;
+        display: block;
+        margin: 0 auto; /* center the iframe */
+        border-radius: 10px; /* optional for nicer look */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* optional shadow */
+        margin-bottom: 22px;
+      }
+
+      .link {
+        text-decoration: underline;
+        color: #7b5e57;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1 style="text-align: left">
+          Carbon Wise: Household Waste Carbon Emission Calcualator
+        </h1>
+        <p>By <strong>Bhavya R</strong></p>
+      </header>
+
+      <nav>
+        <h2>Table of Contents</h2>
+        <ul>
+          <li><a href="#introduction">1. Introduction</a></li>
+          <li><a href="#building">2. Building Carbon Wise App</a></li>
+          <li><a href="#how-system-works">3. How The System Works</a></li>
+          <li><a href="#why-matters">4. Why Carbon Wise Matters</a></li>
+          <li><a href="#conclusion">5. Conclusion</a></li>
+          <li><a href="#references">6. References</a></li>
+          <li><a href="#illustrations">7. Illustrations</a></li>
+        </ul>
+      </nav>
+
+      <section id="introduction">
+        <h2>Introduction</h2>
+        <details>
+          <summary>Video</summary>
+          <iframe
+            src="https://drive.google.com/file/d/1-InDSAqG3P0BAKObfK-PNBbAPPSggAfr/preview"
+            allow="autoplay"
+            class="vid"
+            allowfullscreen="true"></iframe>
+        </details>
+        <p>
+          The rise in global temperatures and the intensifying effects of
+          climate change have made it essential for individuals to take
+          actionable steps toward sustainability. Household waste, a significant
+          contributor to carbon emissions, often goes overlooked in the larger
+          conversation about environmental responsibility. Recognizing this gap,
+          'Carbon Wise' was developed as a mobile application designed to help
+          users measure and manage their carbon footprint from household waste.
+        </p>
+        <p>
+          This app is grounded in the scientific principle of carbon footprint
+          calculation. Each type of waste material, whether plastic, paper or
+          organic, has an associated carbon emission factor, an established
+          metric indicating its greenhouse gas emissions. By integrating these
+          factors into an accessible platform, it offers a practical,
+          data-driven approach to raising awareness and promoting sustainable
+          behaviours.
+        </p>
+      </section>
+
+      <section id="building">
+        <h2>Building Carbon Wise App</h2>
+        <h3>Mobile Application (Carbon Wise)</h3>
+        <p>
+          The 'Carbon Wise' mobile application was developed using the
+          Sketchware platform, a mobile app-building tool that integrates user
+          interfaces, databases, and logic systems. The app's core components
+          include:
+        </p>
+        <ul>
+          <li>
+            User Interface - Simple and intuitive, guiding users through the
+            waste tracking process.
+          </li>
+          <li>
+            Database - A repository of emission factors for different waste
+            types.
+          </li>
+          <li>
+            Calculation Module - Computes real-time carbon emissions based on
+            user input.
+          </li>
+          <li>
+            Feedback System - AI-generated suggestions to help users reduce
+            their carbon footprint.
+          </li>
+        </ul>
+
+        <h3>Arduino-Based Automated Emission Calculator</h3>
+        <p>
+          To improve accessibility and accuracy, an Arduino-based system was
+          developed. This embedded system allows users to measure waste weight
+          and calculate emissions without needing a manual weighing scale. Key
+          components include:
+        </p>
+        <ul>
+          <li>
+            HX711 Load Cell Sensor - Precisely measures the weight of waste.
+          </li>
+          <li>
+            Physical Buttons - Used to navigate waste categories (plastic,
+            paper, glass, etc.).
+          </li>
+          <li>
+            Carbon Emission Factor Integration - Multiplies the weight by
+            predefined emission factors to determine CO₂ emissions.
+          </li>
+          <li>
+            16x2 LCD Display - Shows real-time weight updates, waste category
+            selection, and final emissions.
+          </li>
+          <li>
+            Standalone Operation - Works offline, making it accessible to all
+            users.
+          </li>
+        </ul>
+      </section>
+
+      <section id="how-system-works">
+        <h2>How The System Works</h2>
+        <h3>Carbon Wise Mobile App</h3>
+        <p>The app operates in three main stages:</p>
+        <ol>
+          <li>
+            Home Screen
+            <ul>
+              <li>
+                Displays the last calculated carbon emissions in a pie chart
+                format.
+              </li>
+              <li>
+                A prominent “Calculate My Footprint” button invites users to
+                start a new calculation.
+              </li>
+            </ul>
+          </li>
+          <li>
+            Input Screen
+            <ul>
+              <li>
+                Users select waste categories (plastic, paper, food waste,
+                etc.).
+              </li>
+              <li>They enter the quantity of each waste type in kilograms.</li>
+              <li>Clicking “Add to List” saves the data.</li>
+              <li>
+                Once all inputs are entered, users click “Calculate” to see
+                results.
+              </li>
+            </ul>
+          </li>
+          <li>
+            Results Screen
+            <ul>
+              <li>
+                A summary of total carbon emissions is displayed with a pie
+                chart visualization.
+              </li>
+              <li>
+                AI-generated feedback messages provide motivation and actionable
+                advice.
+              </li>
+            </ul>
+          </li>
+        </ol>
+
+        <h3>Arduino-Based Automated System</h3>
+        <p>
+          This system eliminates the need for manual input by automating the
+          waste measurement process:
+        </p>
+        <ol>
+          <li>Users place waste on the load cell sensor.</li>
+          <li>The user navigates waste categories using physical buttons.</li>
+          <li>
+            The system automatically calculates emissions using:
+            <span class="math-text"
+              >$$ \text{TE} = (\text{Weight} \times \text{Emission Factor})
+              $$</span
+            >
+          </li>
+          <li>
+            Results are displayed on the LCD screen, with scrolling text for
+            longer messages.
+          </li>
+        </ol>
+
+        <h3>Example Calculation (Both Mobile & Arduino Systems)</h3>
+        <p>If a user inputs the following details:</p>
+        <ul>
+          <li>Plastic: 5kg with an emission factor of 6kg CO₂/kg</li>
+          <li>Paper: 10kg with an emission factor of 1.2kg CO₂/kg</li>
+          <li>Food Waste: 8kg with an emission factor of 1.9kg CO₂/kg</li>
+        </ul>
+        <p>The total emission is calculated as:</p>
+        <p>$$ \text{TE} = \sum_{i=1}^{n} (q_i \times e_i) $$</p>
+
+        <p>Where:</p>
+
+        <ul>
+          <li>\(\text{TE}\) = Total Emissions (e.g., in \(kg CO_2 e\))</li>
+          <li>\(q_i\) = Quantity of item or activity \(i\)</li>
+          <li>
+            \(e_i\) = Emission factor for item or activity \(i\) (e.g., \(kg
+            CO_2 e\) per unit)
+          </li>
+          <li>\(n\) = Total number of items or activities</li>
+        </ul>
+
+        Example:<br />$$ \text{TE} = (5 \times 6) + (10 \times 1.2) + (8 \times
+        1.9) = 30 + 12 + 15.2 = 57.2kg CO_2 e $$
+      </section>
+
+      <section id="why-matters">
+        <h2>Why Carbon Wise Matters</h2>
+        <p>The app's benefits extend beyond calculation:</p>
+        <ul>
+          <li>
+            Education and Awareness: Helps users understand their daily habits'
+            environmental impacts.
+          </li>
+          <li>
+            Empowerment: Enables users to take meaningful steps to reduce their
+            carbon footprint.
+          </li>
+          <li>
+            Informed Decision-Making: Provides data-driven insights for better
+            waste management practices.
+          </li>
+          <li>
+            Sustainability Impact: Fosters eco-conscious habits to reduce
+            greenhouse gas emissions.
+          </li>
+        </ul>
+
+        <h3>Applications</h3>
+        <ul>
+          <li>
+            Households: Encourages families to track and reduce waste emissions
+            collectively.
+          </li>
+          <li>
+            Educational Institutions: Serves as a teaching tool for
+            sustainability and waste management.
+          </li>
+          <li>
+            Community Programs: Promotes environmental conservation campaigns.
+          </li>
+        </ul>
+
+        <h3>Future Enhancements</h3>
+        <ul>
+          <li>
+            Mobile-Connected Arduino System with AI-powered feedback via
+            Bluetooth or Wi-Fi.
+          </li>
+          <li>
+            Expanded Waste Database with refined emission factors based on
+            updated research.
+          </li>
+          <li>
+            Recycling Guidance: Connecting users with local recycling services.
+          </li>
+          <li>
+            User Motivation & Engagement: Challenges, progress tracking, and
+            reward systems.
+          </li>
+        </ul>
+
+        <h3>Impact on Sustainability</h3>
+        <p>
+          By offering an accessible tool for managing waste emissions, 'Carbon
+          Wise' supports multiple United Nations Sustainable Development Goals
+          (SDGs), including:
+        </p>
+        <ul>
+          <li>
+            <strong>SDG 12: Responsible Consumption and Production</strong> -
+            Encouraging waste reduction and promoting sustainable resource use.
+          </li>
+          <li>
+            <strong>SDG 13: Climate Action</strong> - Empowering individuals to
+            reduce their carbon footprint and take climate action at a personal
+            level.
+          </li>
+          <li>
+            <strong>SDG 11: Sustainable Cities and Communities</strong> -
+            Promoting eco-conscious living in urban and rural settings.
+          </li>
+        </ul>
+        <p>
+          By aligning with these global goals, 'Carbon Wise' plays a small but
+          vital role in building a more sustainable and resilient future.
+        </p>
+      </section>
+
+      <section id="conclusion">
+        <h2>Conclusion</h2>
+        <p>
+          The "Carbon Wise" project provides an efficient way to track and
+          reduce household carbon emissions. By integrating an AI-powered app
+          with an Arduino-based measurement system, it ensures accurate
+          calculations and informed decision-making. Future enhancements will
+          further improve accessibility and impact, promoting sustainable habits
+          and environmental responsibility.
+        </p>
+      </section>
+
+      <section id="references">
+        <h2>References</h2>
+        <ul>
+          <li>
+            <a href="https://cpcb.nic.in" target="_blank"
+              >Central Pollution Control Board (CPCB)</a
+            >
+          </li>
+          <li>
+            Articles from Journal of Environmental Management - Research on
+            waste and carbon footprint calculations.
+          </li>
+          <li>Wikipedia.org</li>
+        </ul>
+      </section>
+
+      <section id="illustrations">
+        <h2>Illustrations</h2>
+        <div class="gallery">
+          <img
+            src="https://bhavya-2012.github.io/images/home.png"
+            alt="Home Screen"
+            class="thumbnail" />
+          <img
+            src="https://bhavya-2012.github.io/images/input.png"
+            alt="Input Screen"
+            class="thumbnail" />
+          <img
+            src="https://bhavya-2012.github.io/images/list.png"
+            alt="List Screen"
+            class="thumbnail" />
+          <img
+            src="https://bhavya-2012.github.io/images/final.png"
+            alt="Final Screen"
+            class="thumbnail" />
+        </div>
+
+        <!-- Modal for full screen view -->
+        <div id="modal" class="modal">
+          <span id="close">&times;</span>
+          <img class="modal-content" id="modal-img" />
+        </div>
+      </section>
+    </div>
+    <footer>
+      <a
+        href="https://bhavya-2012.github.io/files/CarbonWise.pdf"
+        target="_blank"
+        class="link"
+        >Download PDF</a
+      >
+
+      <p>© 2025 Bhavya R</p>
+    </footer>
+  </body>
+  <script>
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modal-img");
+    const thumbnails = document.querySelectorAll(".thumbnail");
+    const closeBtn = document.getElementById("close");
+
+    thumbnails.forEach((thumbnail) => {
+      thumbnail.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalImg.src = thumbnail.src;
+      });
+    });
+
+    closeBtn.onclick = function () {
+      modal.style.display = "none";
+    };
+
+    window.onclick = function (event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+  <script>
+    window.MathJax = {
+      text: {
+        scale: 0.1, // Scale down globally
+      },
+    };
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      TeX: {
+        extensions: ["mhchem.js"],
+      },
+      tex2jax: {
+        inlineMath: [
+          ["$", "$"],
+          ["\\(", "\\)"],
+        ],
+      },
+    };
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+    });
+  </script>
+
+  <script
+    type="text/javascript"
+    async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default"></script>
+</html>
